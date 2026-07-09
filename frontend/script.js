@@ -4,7 +4,7 @@
 // API key never touches this file or the browser.
 // ============================================================
 
-const BACKEND_URL = "http://localhost:8000"; // change if you deploy the backend elsewhere
+const BACKEND_URL = "https://skincare-concierge.onrender.com"; // change if you deploy the backend elsewhere
 
 const form          = document.getElementById("skinForm");
 const submitBtn     = document.getElementById("submitBtn");
