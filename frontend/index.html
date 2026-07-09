@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dérive — AI Skincare Concierge</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;1,9..144,500&family=Sora:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ambient background -->
+  <div class="atmosphere" aria-hidden="true">
+    <div class="blob blob-a"></div>
+    <div class="blob blob-b"></div>
+    <div class="blob blob-c"></div>
+    <div class="grain"></div>
+  </div>
+
+  <div class="frame">
+
+    <!-- ============ NAV ============ -->
+    <header class="nav">
+      <div class="brand">
+        <span class="brand-mark">
+          <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16 2C16 2 6 13.5 6 20.5C6 26.29 10.48 30 16 30C21.52 30 26 26.29 26 20.5C26 13.5 16 2 16 2Z" fill="url(#dropGrad)"/>
+            <defs>
+              <linearGradient id="dropGrad" x1="6" y1="2" x2="26" y2="30" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#F3B9C4"/>
+                <stop offset="0.55" stop-color="#D9A566"/>
+                <stop offset="1" stop-color="#8FA888"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </span>
+        <div class="brand-text">
+          <span class="brand-name">Dérive</span>
+          <span class="brand-sub">AI Skincare Concierge</span>
+        </div>
+      </div>
+
+      <div class="status-pill">
+        <span class="status-dot"></span>
+        <span class="status-label">Live</span>
+        <span class="status-divider">·</span>
+        <span class="status-model">GPT‑OSS 120B <em>+</em> Granite 4H</span>
+      </div>
+    </header>
+
+    <!-- ============ HERO ============ -->
+    <section class="hero">
+      <p class="eyebrow">Clinical logic, dissolved in conversation</p>
+      <h1 class="hero-title">
+        Tell us how your<br/>
+        skin <em>actually</em> feels.
+      </h1>
+      <p class="hero-sub">
+        Four inputs. One orchestrated agent. A three-step routine
+        formulated specifically for your skin, your climate, and
+        the cycle you're in right now.
+      </p>
+    </section>
+
+    <!-- ============ MAIN GRID ============ -->
+    <main class="grid">
+
+      <!-- -------- FORM PANEL -------- -->
+      <section class="panel glass form-panel" id="formPanel">
+        <div class="panel-head">
+          <span class="panel-index">01</span>
+          <h2>Skin profile</h2>
+        </div>
+
+        <form id="skinForm" class="skin-form">
+
+          <label class="field">
+            <span class="field-label">Skin type</span>
+            <select name="skinType" required>
+              <option value="" disabled selected>Choose one</option>
+              <option value="Dry">Dry</option>
+              <option value="Oily">Oily</option>
+              <option value="Combination">Combination</option>
+              <option value="Normal">Normal</option>
+              <option value="Sensitive">Sensitive</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="field-label">Active concern</span>
+            <select name="concern" required>
+              <option value="" disabled selected>Choose one</option>
+              <option value="Acne & breakouts">Acne &amp; breakouts</option>
+              <option value="Hyperpigmentation">Hyperpigmentation</option>
+              <option value="Fine lines & aging">Fine lines &amp; aging</option>
+              <option value="Dullness">Dullness</option>
+              <option value="Redness & irritation">Redness &amp; irritation</option>
+              <option value="Dehydration">Dehydration</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="field-label">Climate</span>
+            <select name="climate" required>
+              <option value="" disabled selected>Choose one</option>
+              <option value="Humid & tropical">Humid &amp; tropical</option>
+              <option value="Hot & dry">Hot &amp; dry</option>
+              <option value="Cold & dry">Cold &amp; dry</option>
+              <option value="Temperate">Temperate</option>
+              <option value="High pollution urban">High pollution urban</option>
+            </select>
+          </label>
+
+          <label class="field">
+            <span class="field-label">Routine cycle</span>
+            <div class="segmented" role="radiogroup" aria-label="Routine cycle">
+              <input type="radio" id="cycle-am" name="cycle" value="AM" checked/>
+              <label for="cycle-am">Morning</label>
+              <input type="radio" id="cycle-pm" name="cycle" value="PM"/>
+              <label for="cycle-pm">Evening</label>
+            </div>
+          </label>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <span class="btn-label">Formulate my routine</span>
+            <span class="btn-arrow">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+          </button>
+
+          <p class="form-hint" id="formHint">Orchestrated by watsonx · your session is not stored</p>
+        </form>
+      </section>
+
+      <!-- -------- RESPONSE PANEL -------- -->
+      <section class="panel glass response-panel" id="responsePanel">
+        <div class="panel-head">
+          <span class="panel-index">02</span>
+          <h2>Agent guidance</h2>
+        </div>
+
+        <div class="response-body" id="responseBody">
+          <div class="empty-state" id="emptyState">
+            <span class="empty-glyph">
+              <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><path d="M16 2C16 2 6 13.5 6 20.5C6 26.29 10.48 30 16 30C21.52 30 26 26.29 26 20.5C26 13.5 16 2 16 2Z" stroke="currentColor" stroke-width="1.4"/></svg>
+            </span>
+            <p>Your concierge is listening. Fill in your profile to begin.</p>
+          </div>
+
+          <div class="thinking" id="thinkingState" hidden>
+            <span class="thinking-dot"></span>
+            <span class="thinking-dot"></span>
+            <span class="thinking-dot"></span>
+            <span class="thinking-text">Consulting the formulation model…</span>
+          </div>
+
+          <div class="agent-answer" id="agentAnswer" hidden></div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ============ ROUTINE STEPS ============ -->
+    <section class="routine-section" id="routineSection" hidden>
+      <div class="panel-head routine-head">
+        <span class="panel-index">03</span>
+        <h2>Your three-step routine</h2>
+      </div>
+
+      <div class="droplets" id="droplets">
+        <article class="droplet glass" data-step="1">
+          <span class="droplet-num">01</span>
+          <h3 class="droplet-title">Cleanse</h3>
+          <p class="droplet-text" data-slot="cleanse">—</p>
+        </article>
+        <article class="droplet glass" data-step="2">
+          <span class="droplet-num">02</span>
+          <h3 class="droplet-title">Treat</h3>
+          <p class="droplet-text" data-slot="treat">—</p>
+        </article>
+        <article class="droplet glass" data-step="3">
+          <span class="droplet-num">03</span>
+          <h3 class="droplet-title">Protect</h3>
+          <p class="droplet-text" data-slot="protect">—</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="site-footer">
+      <span>Dérive · powered by watsonx Orchestrate</span>
+      <span class="footer-dot">·</span>
+      <span id="connStatus" class="conn-status">checking backend…</span>
+    </footer>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
