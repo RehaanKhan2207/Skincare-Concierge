@@ -19,6 +19,7 @@ The application is engineered using a decoupled microservices architecture to en
 |--------|------------|---------|
 | **Frontend** | HTML5, CSS3 (Glassmorphism), JavaScript (ES6+) | Delivers a high-fidelity, responsive client interface running completely client-side. |
 | **Backend** | FastAPI (Python 3.10+), Uvicorn, HTTPX | Acts as a secure, asynchronous gateway to manage cross-origin resource sharing (CORS) and external integrations. |
+| **Development IDE** | IBM Bee | AI-assisted integrated development environment used for code generation, debugging, and accelerating the development workflow. |
 | **AI Orchestration** | IBM Watsonx Orchestrate | Coordinates multi-model routing and handles complex runtime logic. |
 | **Foundational Models** | IBM Granite 4h Small & GPT-OSS 120B | Leverages enterprise LLMs for highly structured, precise dermatological hygiene routine generation. |
 | **Hosting (API)** | Render | Hosts the containerized Python environment with continuous deployment pipelines. |
