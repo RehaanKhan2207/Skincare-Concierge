@@ -6,12 +6,16 @@ import httpx
 import os
 from dotenv import load_dotenv
 
-# Load environment variables from the .env file in the parent directory
-load_dotenv(dotenv_path="../.env")
+# Try loading from the environment file (useful for local development)
+# If the file doesn't exist (like on Vercel), it safely skips it without failing.
+if os.path.exists("../.env"):
+    load_dotenv(dotenv_path="../.env")
+elif os.path.exists(".env"):
+    load_dotenv()
 
 app = FastAPI()
 
-# Allow CORS so your frontend can communicate with this local server
+# Allow CORS so your frontend can communicate with this server
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"], 
@@ -35,6 +39,13 @@ async def health_check():
 
 @app.post("/api/chat")
 async def chat_with_agent(request: ChatRequest):
+    # Quick sanity check: If API_KEY is missing, catch it before making the network request
+    if not API_KEY:
+        raise HTTPException(
+            status_code=500, 
+            detail="Configuration Error: IBM_API_KEY environment variable is missing or empty."
+        )
+
     # Constructing a standard REST call to the Watson Orchestrate instance
     url = f"{IBM_URL}/v1/orchestrate/{AGENT_ID}/chat/completions" 
     
@@ -50,8 +61,14 @@ async def chat_with_agent(request: ChatRequest):
         }
         try:
             token_response = await client.post(token_url, data=token_data, headers=token_headers)
+            # If IBM returns a 400 or 401, this will raise an error containing the reason
             token_response.raise_for_status()
             access_token = token_response.json().get("access_token")
+        except httpx.HTTPStatusError as e:
+            raise HTTPException(
+                status_code=500, 
+                detail=f"Failed to get IAM token: Client error '{e.response.status_code}' from IBM. Reason: {e.response.text}"
+            )
         except Exception as e:
             raise HTTPException(status_code=500, detail=f"Failed to get IAM token: {str(e)}")
 
