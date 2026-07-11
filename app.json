@@ -1,0 +1,86 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "WatsonxGraniteEngine",
+    "description": "Custom skill for specialized clinical reasoning tasks",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://us-south.ml.cloud.ibm.com"
+    }
+  ],
+  "paths": {
+    "/ml/v1/text/generation": {
+      "post": {
+        "operationId": "text_generation",
+        "summary": "Generate Skincare Routine",
+        "parameters": [
+          {
+            "name": "version",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "example": "2023-05-29"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "model_id": {
+                    "type": "string",
+                    "example": "ibm/granite-4-h-small"
+                  },
+                  "project_id": {
+                    "type": "string",
+                    "example": "6651e7e8-4b45-4a1f-96ef-3d697d7c3bc1"
+                  },
+                  "input": {
+                    "type": "string",
+                    "example": "Act as a dermatologist..."
+                  }
+                },
+                "required": [
+                  "model_id",
+                  "project_id",
+                  "input"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "generated_text": {
+                            "type": "string"
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
